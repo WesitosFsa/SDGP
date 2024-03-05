@@ -1,0 +1,126 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.wesos header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Asegura que la barra de navegación esté por encima del resto del contenido */
+}
+
+.wesos2 main {
+  margin-top: 80px; /* Ajusta el margen superior del contenido principal para que no se superponga con la barra de navegación fija */
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin: 0 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+main {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espacio entre los elementos dentro del main */
+}
+
+main h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead {
+  background-color: #2E588A;
+  color: white;
+}
+
+table th {
+  padding: 0.5rem;
+  text-align: left;
+}
+
+table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+table td ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+table td li {
+  margin-bottom: 0.2rem;
+}
+
+button {
+  background-color: #2E588A;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+button:last-child {
+  margin-right: 0;
+}
+
+/* Estilos para el formulario DOM */
+form {
+  display: grid;
+  grid-gap: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+
+
+
+  

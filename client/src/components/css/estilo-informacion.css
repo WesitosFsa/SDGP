@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.colabheader {
+    background-color: #0652ae;
+    text-align: center;
+    padding: 10px; 
+    height: 55px;
+    color: #000000;
+}
+
+
+h1, h2, p {
+    color: #000000;
+}
+
+.colaboradores {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #8cf0f4;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.volverinfo {
+    background-color: #1a53a2;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px; /* Agregar margen superior al botón */
+    margin-bottom: 20px; /* Agregar margen inferior al botón */
+}
+.container {
+    max-height: calc(100vh - 100px); /* Altura máxima igual a la altura de la pantalla menos la altura de la barra de navegación */
+    overflow-y: auto; /* Habilita el desplazamiento vertical si el contenido es más grande que la altura máxima */
+  }

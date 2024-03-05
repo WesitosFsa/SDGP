@@ -1,0 +1,92 @@
+.container-cuenta {
+  width: 100%;
+  max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; /* Agrega un poco de espacio interno */
+  box-sizing: border-box; /* Asegura que el padding no incremente el tamaño total */
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+form {
+  width: 100%;
+  max-width: 400px; /* Ancho máximo del formulario */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto; /* Centra el formulario horizontalmente */
+}
+
+
+label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+input[type="email"],
+input[type="password"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  width: calc(100% - 12px); /* Ajusta el ancho del input para compensar el padding */
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  margin-bottom: 1rem;
+}
+
+button[type="submit"],
+.volver,
+.proyectos {
+  background-color: #5d90f5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin-bottom: 1rem; /* Añade espacio inferior */
+  max-width: 700px;
+}
+
+.proyectos {
+  background-color: #ff0000;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.google-login,
+.microsoft-login {
+  background-color: #dddddd;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  width: 48%;
+  box-sizing: border-box;
+}
+
+a {
+  color: #2E588A;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
