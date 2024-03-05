@@ -17,12 +17,20 @@ function AdministradorUsuarios() {
 
     const agregarUsuario = (evento) => {
         evento.preventDefault();
-
+    
+        // Asignar el valor correcto de permisos
+        let permisosValue = '';
+        if (permisos === 'administrador') {
+            permisosValue = '1';
+        } else if (permisos === 'usuario') {
+            permisosValue = '2';
+        }
+    
         axios.post('http://localhost:3001/agregarUsuario', {
             nombre,
             email,
             ubicacion,
-            permisos,
+            permisos: permisosValue, // Usar el valor correcto de permisos
             contraseña
         })
         .then(response => {
@@ -71,7 +79,6 @@ function AdministradorUsuarios() {
         usuario.ubicacion.toUpperCase().includes(filtro) ||
         usuario.permisos.toUpperCase().includes(filtro)
     );
-
     return (
         <div className='container'>
             <div>
@@ -123,7 +130,8 @@ function AdministradorUsuarios() {
                         <br />
                         <label htmlFor="permisos">Permisos:</label>
                         <select id="permisos" name="permisos" value={permisos} onChange={(e) => setPermisos(e.target.value)}>
-                            <option value="admin">Administrador</option>
+                            <option >Seleccione</option>
+                            <option value="administrador">Administrador</option>
                             <option value="usuario">Usuario</option>
                         </select>
                         <br />

@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -12,6 +12,36 @@ const db = mysql.createConnection({
     password: "123456mm",
     database: "SDGP_CRUD"
 });
+
+// Endpoint para el inicio de sesión
+app.post("/login", (req, res) => {
+    const email = req.body.email;
+    const contraseña = req.body.contraseña;
+
+    // Consultar la base de datos para verificar las credenciales
+    db.query('SELECT * FROM usuarios WHERE email = ? AND contraseña = ?', [email, contraseña], (err, result) => {
+        if (err) {
+            console.error("Error al verificar las credenciales:", err);
+            res.status(500).send("Error al iniciar sesión.");
+        } else {
+            if (result.length > 0) {
+                const usuario = result[0];
+                // Redirigir según el tipo de permisos del usuario
+                if (usuario.permisos === '1') {
+                    // Administrador
+                    res.status(200).json({ mensaje: "Inicio de sesión exitoso como administrador", usuario });
+                } else if (usuario.permisos === '2') {
+                    // Usuario regular
+                    res.status(200).json({ mensaje: "Inicio de sesión exitoso como usuario regular", usuario });
+                }
+            } else {
+                res.status(401).send("Credenciales inválidas");
+            }
+        }
+    });
+});
+
+
 
 app.post("/create", (req, res) => {
     const nombreProyecto = req.body.nombreProyecto;
