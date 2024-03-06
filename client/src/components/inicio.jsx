@@ -1,59 +1,89 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './css/inicio.css'; // Asegúrate de usar './' para indicar que es un archivo local
+import Swal from 'sweetalert2';
 
 const LoginPage = () => {
-  const [error, setError] = useState('');
+  const [body, setBody] = useState({ email: '', contraseña: '' });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    try {
-      // Realizar la solicitud de inicio de sesión al servidor
-      const response = await axios.post('http://localhost:3001/login', { email, password });
-
-      // Verificar la respuesta del servidor
-      if (response.status === 200) {
-        // Redirigir al usuario según el tipo de permisos
-        const { permisos } = response.data;
-        if (permisos === 'administrador') {
-          window.location.href = '/administrador';
-        } else if (permisos === 'usuario') {
-          window.location.href = '/proyectosuser';
-        } else {
-          setError('Tipo de permisos desconocido');
-        }
-      } else {
-        setError('Credenciales inválidas');
-      }
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      setError('Error al iniciar sesión');
-    }
+  const inputChange = ({ target }) => {
+    const { name, value } = target;
+    setBody({
+      ...body,
+      [name]: value
+    });
   };
+
+  const onSubmit = () => {
+    axios.post("http://localhost:3001/login", body)
+      .then(({ data }) => {
+        if (data.id === "1") {
+          // Muestra la alerta y luego redirecciona a proyectosuser
+          Swal.fire({
+            icon: "success",
+            title: "Bienvenido a SDGP",
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            window.location.href = '/proyectosuser';
+          });
+        } else if (data.id === "2") {
+          // Muestra la alerta y luego redirecciona a administrador
+          Swal.fire({
+            icon: "success",
+            title: "Bienvenido a administradores",
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            window.location.href = '/administrador';
+          });
+        } else {
+          // Otro caso, manejar según sea necesario
+        }
+      })
+      .catch(({ response }) => {
+        Swal.fire({
+          icon: "error",
+          title: "Usuario o constraseña incorrecto",
+          text: "Inserte de nuevo",
+        });
+        console.log(response.data);
+      });
+  };
+  
+  
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="mb-3">
           <h1>Bienvenido</h1>
           <br />
           <label htmlFor="exampleInputEmail1" className="form-label">Email: </label>
-          <input type="email" className="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" />
+          <input
+            type="email"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            value={body.email}
+            onChange={inputChange}
+            name='email' />
           <div id="emailHelp" className="form-text">No compartas tu contraseña con otros.</div>
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">Contraseña:</label>
-          <input type="password" className="form-control" id="exampleInputPassword1" name="password" />
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            value={body.contraseña}
+            onChange={inputChange}
+            name="contraseña" />
         </div>
-        <button type="submit" className="btn btn-primary btn-lg">Ingresar</button>
-        <button type="button" className="btn btn-primary btn-lg" onClick={() => window.location.href = '/administrador'}>Administrador</button>
-        <button type="button" className="btn btn-primary btn-lg" onClick={() => window.location.href = '/proyectosuser'}>Usuario</button>
+        <button type="button" className="btn btn-primary btn-lg" onClick={onSubmit}>Ingresar</button>
         <button type="button" className="btn btn-primary btn-lg" onClick={() => window.location.href = '/'}>Regresar</button>
       </form>
-      {error && <div className="alert alert-danger">{error}</div>}
+
       <br />
       <br />
       <div className="social-login">
@@ -63,6 +93,6 @@ const LoginPage = () => {
       <br />
     </div>
   );
-};
+}
 
 export default LoginPage;

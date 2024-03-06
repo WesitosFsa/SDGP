@@ -1,38 +1,244 @@
-.App {
+/* app.css */
+
+/* Reset de estilos */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos para el fondo */
+body {
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Para centrar verticalmente */
+}
+
+/* Estilos del encabezado */
+.indexheader {
+  background-color: #054fab;
+  color: white;
+  padding: 2em; /* Cambiado a unidades relativas */
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header h1 {
+  font-size: 2.5em; /* Cambiado a unidades relativas */
+  margin-bottom: 1em; /* Cambiado a unidades relativas */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header p {
+  font-size: 1.2em; /* Cambiado a unidades relativas */
+  margin-top: 0;
+  margin-bottom: 2em; /* Cambiado a unidades relativas */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Estilos de la navegación */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+nav ul li {
+  margin: 0 1em; /* Cambiado a unidades relativas */
+} 
+
+.listaindex {
+  background-color: #2E588A;
+  padding: 0.5em 1em; /* Cambiado a unidades relativas */
+  border-radius: 4px;
+}
+
+nav ul li a {
+  color: rgb(57, 127, 202);
+  text-decoration: none;
+}
+
+/* Estilos del contenido principal */
+main {
+  padding: 2em; /* Cambiado a unidades relativas */
+  text-align: center;
+}
+
+main h2 {
+  font-size: 2em; /* Cambiado a unidades relativas */
+  margin-bottom: 1.5em; /* Cambiado a unidades relativas */
+}
+
+main p {
+  font-size: 1.2em; /* Cambiado a unidades relativas */
+  margin-bottom: 2em; /* Cambiado a unidades relativas */
+}
+
+.botoninicio, .olv {
+  background-color: #2E588A;
   color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 1em 2.5em; /* Cambiado a unidades relativas */
+  cursor: pointer;
+  margin: 0.5em auto; /* Cambiado a unidades relativas */
+  display: block;
+  width: 50%;
 }
 
-.App-link {
-  color: #61dafb;
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2em; /* Cambiado a unidades relativas */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2em; /* Cambiado a unidades relativas */
+}
+
+.col {
+  flex: 1;
+  margin: 0 0.25em; /* Cambiado a unidades relativas */
+  margin-left: 6.25em; /* Cambiado a unidades relativas */
+}
+
+.col img {
+  display: block;
+  max-width: 100%; /* Ajuste para que las imágenes sean responsivas */
+  height: auto;
+  margin: 0;
+}
+
+/* Estilos de sección */
+section {
+  max-width: 50em; /* Cambiado a unidades relativas */
+  margin: 1.25em auto; /* Cambiado a unidades relativas */
+  background-color: #fff;
+  padding: 1.25em; /* Cambiado a unidades relativas */
+  box-shadow: 0 0 0.625em rgba(0, 0, 0, 0.1); /* Cambiado a unidades relativas */
+}
+
+/* Estilos de encabezado */
+h1, h2, h3 {
+  color: #333;
+}
+
+/* Estilos de botón */
+.button {
+  background-color: #2E588A;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.625em; /* Cambiado a unidades relativas */
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #1A3558;
+}
+
+/* Estilos de formulario */
+.form-container {
+  width: 37.5em; /* Cambiado a unidades relativas */
+  margin-top: 1.25em; /* Cambiado a unidades relativas */
+  background-color: #fff;
+  padding: 1.25em; /* Cambiado a unidades relativas */
+  box-shadow: 0 0 0.625em rgba(0, 0, 0, 0.1); /* Cambiado a unidades relativas */
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em; /* Cambiado a unidades relativas */
+}
+
+input[type="text"],
+input[type="email"],
+select {
+  width: 100%;
+  padding: 0.625em; /* Cambiado a unidades relativas */
+  margin-bottom: 0.9375em; /* Cambiado a unidades relativas */
+  box-sizing: border-box;
+  border: 0.0625em solid #ccc; /* Cambiado a unidades relativas */
+  border-radius: 4px;
+}
+
+/* Estilos de encabezado de sección */
+.header {
+  background-color: #0652ae;
+  text-align: center;
+  padding: 0.625em; /* Cambiado a unidades relativas */
+  height: 3.4375em; /* Cambiado a unidades relativas */
+  color: #000000;
+}
+
+/* Estilos de botón de regreso */
+.return-button {
+  background-color: #1a53a2;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3125em; /* Cambiado a unidades relativas */
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1.25em; /* Cambiado a unidades relativas */
+  margin-bottom: 1.25em; /* Cambiado a unidades relativas */
+}
+
+/* Estilos de barra de navegación */
+.navbar {
+  background-color: #054fab;
+  color: white;
+  padding: 2em; /* Cambiado a unidades relativas */
+  text-align: center;
+}
+
+.navbar h1 {
+  font-size: 2.5em; /* Cambiado a unidades relativas */
+  margin-bottom: 1em; /* Cambiado a unidades relativas */
+}
+
+.navbar p {
+  font-size: 1.2em; /* Cambiado a unidades relativas */
+  margin-top: 0;
+  margin-bottom: 2em; /* Cambiado a unidades relativas */
+}
+
+/* Estilos de lista de navegación */
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-list li {
+  margin: 0 1em; /* Cambiado a unidades relativas */
+}
+
+.nav-list li a {
+  color: rgb(57, 127, 202);
+  text-decoration: none;
+}
+
+/* Estilos del footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1.25em 0; /* Cambiado a unidades relativas */
+}
+
+@media (max-width: 48em) {
+  /* Estilos responsivos para dispositivos pequeños */
+  footer {
+    padding: 1.25em; /* Cambiado a unidades relativas */
   }
 }

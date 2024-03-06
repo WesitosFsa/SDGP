@@ -39,7 +39,9 @@ function Usuario() {
       </section>
       <section>
                 <br />
-                <a href="/proyectosuser"><button className="volveruser">Pagina Principal</button></a>
+                
+                <button onClick={() => window.location.href='/proyectosuser'} className="btn btn-primary" type="button">Pagina Principal</button>
+
                 <br />
             </section>
     </div>

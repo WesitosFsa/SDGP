@@ -1,10 +1,10 @@
-const express = require("express");
-const app = express();
-const mysql = require("mysql");
-const cors = require("cors");
+const express = require('express');
+const mysql = require('mysql');
+const cors = require('cors');
 
+const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json())
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -13,35 +13,34 @@ const db = mysql.createConnection({
     database: "SDGP_CRUD"
 });
 
-// Endpoint para el inicio de sesión
-app.post("/login", (req, res) => {
-    const email = req.body.email;
-    const contraseña = req.body.contraseña;
+db.connect((err) => {
+    if (err) {
+        console.error("Error al conectar a la base de datos:", err);
+        return;
+    }
+    console.log("Conexión exitosa a la base de datos");
+});
 
-    // Consultar la base de datos para verificar las credenciales
-    db.query('SELECT * FROM usuarios WHERE email = ? AND contraseña = ?', [email, contraseña], (err, result) => {
+app.post('/login', (req, res) => {
+    const { email, contraseña } = req.body;
+    const values = [email, contraseña];
+    db.query("SELECT * FROM usuarios WHERE email = ? AND contraseña = ?", values, (err, result) => {
         if (err) {
-            console.error("Error al verificar las credenciales:", err);
-            res.status(500).send("Error al iniciar sesión.");
+            res.status(500).send(err);
         } else {
             if (result.length > 0) {
-                const usuario = result[0];
-                // Redirigir según el tipo de permisos del usuario
-                if (usuario.permisos === '1') {
-                    // Administrador
-                    res.status(200).json({ mensaje: "Inicio de sesión exitoso como administrador", usuario });
-                } else if (usuario.permisos === '2') {
-                    // Usuario regular
-                    res.status(200).json({ mensaje: "Inicio de sesión exitoso como usuario regular", usuario });
-                }
-            } else {
-                res.status(401).send("Credenciales inválidas");
+                res.status(200).send({
+                   "id": result[0].permisos,
+                   "email": result[0].email,
+                   "contraseña": result[0].contraseña,
+
+                });
+                } else {
+                res.status(400).send('Usuario no existe');
             }
         }
     });
 });
-
-
 
 app.post("/create", (req, res) => {
     const nombreProyecto = req.body.nombreProyecto;
@@ -59,7 +58,6 @@ app.post("/create", (req, res) => {
         }
     );
 });
-
 app.get("/proyectos", (req, res) => {
     db.query('SELECT * FROM proyectos',
         (err, result) => {
@@ -91,10 +89,6 @@ app.put("/update", (req, res) => {
     );
 });
 
-app.listen(3001, () => {
-    console.log("Servidor escuchando en el puerto 3001")
-});
-// En tu servidor Node.js
 app.post("/agregarUsuario", (req, res) => {
     const { nombre, email, ubicacion, permisos, contraseña } = req.body;
 
@@ -120,3 +114,45 @@ app.get("/usuarios", (req, res) => {
         }
     });
 });
+
+app.delete("/usuarios/:id", (req, res) => {
+    const userId = req.params.id; // Obtener el ID del usuario de los parámetros de la solicitud
+
+    // Realizar la consulta para eliminar el usuario de la base de datos
+    db.query('DELETE FROM usuarios WHERE id = ?', userId, (err, result) => {
+        if (err) {
+            console.error("Error al eliminar usuario:", err);
+            res.status(500).send("Error al eliminar usuario.");
+        } else {
+            // Verificar si se eliminó correctamente algún registro
+            if (result.affectedRows > 0) {
+                res.status(200).send("Usuario eliminado correctamente.");
+            } else {
+                res.status(404).send("No se encontró ningún usuario con ese ID.");
+            }
+        }
+    });
+});
+app.delete("/proyectos/:id", (req, res) => {
+    const userId = req.params.id; // Obtener el ID del usuario de los parámetros de la solicitud
+
+    // Realizar la consulta para eliminar el usuario de la base de datos
+    db.query('DELETE FROM proyectos WHERE idproyecto = ?', userId, (err, result) => {
+        if (err) {
+            console.error("Error al eliminar proyecto:", err);
+            res.status(500).send("Error al eliminar proyecto.");
+        } else {
+            // Verificar si se eliminó correctamente algún registro
+            if (result.affectedRows > 0) {
+                res.status(200).send("Proyecto eliminado.");
+            } else {
+                res.status(404).send("No se encontró ningún proyecto con ese ID.");
+            }
+        }
+    });
+});
+const PORT = 3001;
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+});
+

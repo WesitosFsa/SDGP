@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Swal from 'sweetalert2';
 function Proyectos() {
 
   const [proyectos, setProyectos] = useState([]);
@@ -21,6 +20,12 @@ function Proyectos() {
       getProyectos();
       limpiarCampos();
     });
+    Swal.fire({
+      icon: "success",
+      title: "Proyecto agregado exitosamente",
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
   const updateProyecto = () => {
@@ -30,6 +35,12 @@ function Proyectos() {
       estadoProyecto: estadoProyecto,
       actualizacionesProyecto: actualizacionProyecto,
     }).then(() => {
+      Swal.fire({
+        icon: "success",
+        title: "Proyecto actualizado",
+        showConfirmButton: false,
+        timer: 1500
+      });
       getProyectos();
       limpiarCampos();
     });
@@ -48,9 +59,20 @@ function Proyectos() {
     setActualizacionProyecto(val.actualizacionesdelproyecto);
   }
 
-  const eliminarProyecto = (id) => {
-    // Aquí implementa la lógica para eliminar un proyecto utilizando Axios DELETE request
-  }
+  const eliminarproyectos = (idproyecto) => {
+    Axios.delete(`http://localhost:3001/proyectos/${idproyecto}`)
+    .then(response => {
+        console.log(response.data);
+        getProyectos();
+    })
+    .catch(error => {
+        console.error('Error al eliminar el proyecto:', error);
+    });
+    Swal.fire({
+      icon: "error",
+      title: "Proyecto eliminado",
+      });
+  };
 
   const getProyectos = () => {
     Axios.get("http://localhost:3001/proyectos").then((response) => {
@@ -86,7 +108,7 @@ function Proyectos() {
           {editar ?
             <div>
               <button className='btn btn-warning m-2' onClick={updateProyecto}>Actualizar</button>
-              <button className='btn btn-info m-2' onClick={() => setEditar(false)}>Cancelar</button>
+              <button className='btn btn-info m-2' onClick= {limpiarCampos}>Cancelar</button>
             </div> :
             <button className='btn btn-success' onClick={addProyecto}>Registrar</button>
           }
@@ -112,12 +134,17 @@ function Proyectos() {
               <td>{proyecto.actualizacionesdelproyecto}</td>
               <td>
                 <button className="btn btn-info" onClick={() => editarProyecto(proyecto)}>Editar</button>
-                <button className="btn btn-danger ml-2" onClick={() => eliminarProyecto(proyecto.idproyecto)}>Eliminar</button>
+                <button className="btn btn-danger ml-2" onClick={() => eliminarproyectos(proyecto.idproyecto)}>Eliminar</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <section>
+                <br />
+                <button onClick={() => window.location.href='/proyectosuser'} className="btn btn-primary" type="button">Pagina Principal</button>
+                <br />
+            </section>
     </div>
   );
 }

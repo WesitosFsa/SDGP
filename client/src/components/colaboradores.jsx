@@ -28,7 +28,7 @@ function InformacionUsuarios() {
 
             <section className='colaboradores'>
                 <br />
-                <a href="/proyectosuser"><button className="volvercolab">Pagina Principal</button></a>
+                <button onClick={() => window.location.href='/proyectosuser'} className="btn btn-primary" type="button">Pagina Principal</button>
                 <br />
             </section>
         </div>

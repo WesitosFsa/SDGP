@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './css/administrador.css';
-
+import Swal from 'sweetalert2';
 function AdministradorUsuarios() {
     const [usuarios, setUsuarios] = useState([]);
     const [filtro, setFiltro] = useState('');
@@ -14,7 +14,24 @@ function AdministradorUsuarios() {
     useEffect(() => {
         getUsuarios();
     }, []);
-
+    const handleLogout = () => {
+        Swal.fire({
+          title: "¿Estás seguro que deseas salir?",
+          text: "Los cambios no guardados se perderán",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sí, he guardado todo"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire("¡Gracias!", "", "Gracias por usar nuestra página").then(() => {
+              // Redirigir a otra pantalla después de cerrar sesión
+              window.location.href = '/';
+            });
+          }
+        });
+      };
     const agregarUsuario = (evento) => {
         evento.preventDefault();
     
@@ -43,9 +60,16 @@ function AdministradorUsuarios() {
             setPermisos('');
             setContraseña('');
         })
+        
         .catch(error => {
             console.error('Error al agregar usuario:', error);
         });
+        Swal.fire({
+            icon: "success",
+            title: "Usuario agregado exitosamente",
+            showConfirmButton: false,
+            timer: 1500
+          });
     };
 
     const getUsuarios = () => {
@@ -67,6 +91,10 @@ function AdministradorUsuarios() {
         .catch(error => {
             console.error('Error al eliminar usuario:', error);
         });
+        Swal.fire({
+            icon: "error",
+            title: "Usuario eliminado",
+            });
     };
 
     const filtrarTabla = (evento) => {
@@ -82,7 +110,7 @@ function AdministradorUsuarios() {
     return (
         <div className='container'>
             <div>
-                <header className='adheader'>
+                <header >
                     <h1>Administrador de Usuarios</h1>
                 </header>
                 <hr />
@@ -131,8 +159,8 @@ function AdministradorUsuarios() {
                         <label htmlFor="permisos">Permisos:</label>
                         <select id="permisos" name="permisos" value={permisos} onChange={(e) => setPermisos(e.target.value)}>
                             <option >Seleccione</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="usuario">Usuario</option>
+                            <option value="administrador">Usuarios</option>
+                            <option value="usuario">Administrador</option>
                         </select>
                         <br />
                         <label htmlFor="contraseña">Contraseña:</label>
@@ -143,7 +171,7 @@ function AdministradorUsuarios() {
                 </div>
                 <section>
                     <br />
-                    <a href="/"><button className="volverad">Pagina Principal</button></a>
+                    <button onClick={handleLogout} className='btn btn-warning'>Cerrar Sesion</button>
                     <br />
                 </section>
             </div>

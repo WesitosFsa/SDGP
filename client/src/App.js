@@ -11,7 +11,8 @@ import Proyectos1 from './components/proyectos1';
 import Usuario from './components/usuario';
 import VisualizarProyectos from './components/visualizarproyectos';
 import 'bootstrap/dist/css/bootstrap.min.css';
-//sadksad
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <Router>

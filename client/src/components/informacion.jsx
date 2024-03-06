@@ -3,9 +3,10 @@ import './css/estilo-informacion.css';
 
 function SoporteTecnico() {
   return (
+    
     <div className="container">
       <header className='colabheader'>
-        <h1>Preguntas frecuentes</h1>
+      <h2>Preguntas frecuentes</h2>
       </header>
 
       <section>
@@ -25,7 +26,7 @@ function SoporteTecnico() {
 
       <section>
         <br />
-        <a href="index"><button className="volverinfo">Pagina Principal</button></a>
+        <button onClick={() => window.location.href='/'} className="btn btn-primary" type="button">Pagina Principal</button>
         <br />
       </section>
     </div>

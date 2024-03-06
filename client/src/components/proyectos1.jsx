@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import Axios from 'axios'; // Importa Axios para realizar solicitudes HTTP
-
+import Swal from 'sweetalert2';
 const Proyectos1 = () => {
   const [proyectos, setProyectos] = useState([]);
 
@@ -14,6 +14,8 @@ const Proyectos1 = () => {
         console.error("Error al cargar los proyectos:", error);
       });
   };
+
+  
 
   // Llama a cargarProyectos al montar el componente
   useEffect(() => {
@@ -43,7 +45,26 @@ const Proyectos1 = () => {
                 <a className="nav-link" href="/colaboradores">Colaboradores</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/">Cerrar Sesion</a>
+              <a onClick={() => {
+                Swal.fire({
+                  title: "Estas seguro que desea salir?",
+                    text: "Los cambios no guardados se perderan",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si he guardado todo"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Swal.fire("Gracias,Vuelva pronto", "", "Gracias por usar nuestra página").then(() => {
+                      // Redirigir a otra pantalla después de cerrar sesión
+                      window.location.href = '/';
+                    });
+                  }
+                });
+              }}
+              className="nav-link">Cerrar Sesión</a>
+
               </li>
             </ul>
           </div>
@@ -75,6 +96,7 @@ const Proyectos1 = () => {
           </tbody>
         </table>
       </main>
+      
     </div>
   );
 };
